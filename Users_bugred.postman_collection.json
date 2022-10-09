@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "af16172f-4edf-48d5-aabb-6155680766e8",
+		"_postman_id": "f9cd9da4-ab1e-4d02-8200-4c22fc6d89f7",
 		"name": "Users_bugred",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "20317533"
@@ -271,7 +271,7 @@
 								{
 									"key": "avatar",
 									"type": "file",
-									"src": "wednessfrogpstmn.jpg"
+									"src": "/C:/GitHub/Postman-Training/frog_avatar.jpg"
 								}
 							]
 						},
