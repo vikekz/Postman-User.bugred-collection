@@ -1,16 +1,16 @@
 {
 	"info": {
-		"_postman_id": "b2b2c101-62d9-4e9a-8fcd-5cf2314242a5",
+		"_postman_id": "af16172f-4edf-48d5-aabb-6155680766e8",
 		"name": "Users_bugred",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "20317533"
 	},
 	"item": [
 		{
-			"name": "Life cycle",
+			"name": "Create",
 			"item": [
 				{
-					"name": "Reg",
+					"name": "Register",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -65,7 +65,7 @@
 					"response": []
 				},
 				{
-					"name": "Reg X",
+					"name": "Register X",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -241,9 +241,14 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Other",
+			"item": [
 				{
-					"name": "Login",
+					"name": "Add avatar",
 					"event": [
 						{
 							"listen": "test",
@@ -259,56 +264,319 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Upgrade-Insecure-Requests",
-								"value": "1"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded"
-							},
-							{
-								"key": "User-Agent",
-								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
-							},
-							{
-								"key": "Accept",
-								"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
-							}
-						],
+						"header": [],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
+							"mode": "formdata",
+							"formdata": [
 								{
-									"key": "login",
-									"value": "{{email}}"
-								},
-								{
-									"key": "password",
-									"value": "{{password}}"
+									"key": "avatar",
+									"type": "file",
+									"src": "wednessfrogpstmn.jpg"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://users.bugred.ru/user/login/index.html",
-							"protocol": "http",
+							"raw": "{{url}}/addavatar/?email={{email}}",
 							"host": [
-								"users",
-								"bugred",
-								"ru"
+								"{{url}}"
 							],
 							"path": [
-								"user",
-								"login",
-								"index.html"
+								"addavatar",
+								""
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "{{email}}"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
+					"name": "Create Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"id_task\", jsonData.id_task)\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"task_title\": \"Make a money\",\r\n    \"task_description\": \"Do a good job\",\r\n    \"email_owner\": \"{{email}}\",\r\n    \"email_assign\": \"{{email_x}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/CreateTask",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"CreateTask"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"query\": \"{{placeholder}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/magicsearch",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"magicsearch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Full update user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"{{email}}\",\r\n  \"name\": \"{{name}}\",\r\n  \"tasks\": \"\",\r\n  \"companies\": \"\",\r\n  \"hobby\":\"Company {{name_company}} owner\",\r\n  \"adres\":\"\",\r\n  \"name1\":\"\",\r\n  \"surname1\":\"\",\r\n  \"fathername1\":\"\",\r\n  \"cat\":\"\",\r\n  \"dog\":\"\",\r\n  \"parrot\":\"\",\r\n  \"cavy\":\"\",\r\n  \"hamster\":\"\",\r\n  \"squirrel\":\"\",\r\n  \"phone\":\"\",\r\n  \"inn\":\"\",\r\n  \"gender\":\"m\",\r\n  \"birthday\":\" \",\r\n  \"date_start\":\" \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/fullupdateuser",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"fullupdateuser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
 					"name": "Delete company with login",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Upgrade-Insecure-Requests",
+										"value": "1"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									},
+									{
+										"key": "User-Agent",
+										"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
+									},
+									{
+										"key": "Accept",
+										"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "login",
+											"value": "{{email}}"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://users.bugred.ru/user/login/index.html",
+									"protocol": "http",
+									"host": [
+										"users",
+										"bugred",
+										"ru"
+									],
+									"path": [
+										"user",
+										"login",
+										"index.html"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete company with login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Upgrade-Insecure-Requests",
+										"value": "1"
+									},
+									{
+										"key": "User-Agent",
+										"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
+									},
+									{
+										"key": "Accept",
+										"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+									}
+								],
+								"url": {
+									"raw": "http://users.bugred.ru/companys/delete/{{id_company}}",
+									"protocol": "http",
+									"host": [
+										"users",
+										"bugred",
+										"ru"
+									],
+									"path": [
+										"companys",
+										"delete",
+										"{{id_company}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Upgrade-Insecure-Requests",
+										"value": "1"
+									},
+									{
+										"key": "User-Agent",
+										"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
+									},
+									{
+										"key": "Accept",
+										"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+									}
+								],
+								"url": {
+									"raw": "http://users.bugred.ru/user/logout.html",
+									"protocol": "http",
+									"host": [
+										"users",
+										"bugred",
+										"ru"
+									],
+									"path": [
+										"user",
+										"logout.html"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Project doesn't have a method for deleting a company without a login"
+				},
+				{
+					"name": "Delete avatar",
 					"event": [
 						{
 							"listen": "test",
@@ -324,39 +592,28 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Upgrade-Insecure-Requests",
-								"value": "1"
-							},
-							{
-								"key": "User-Agent",
-								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
-							},
-							{
-								"key": "Accept",
-								"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
-							}
-						],
+						"header": [],
 						"url": {
-							"raw": "http://users.bugred.ru/companys/delete/{{id_company}}",
-							"protocol": "http",
+							"raw": "{{url}}/deleteavatar/?email={{email}}",
 							"host": [
-								"users",
-								"bugred",
-								"ru"
+								"{{url}}"
 							],
 							"path": [
-								"companys",
-								"delete",
-								"{{id_company}}"
+								"deleteavatar",
+								""
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "{{email}}"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Logout",
+					"name": "Delete Task",
 					"event": [
 						{
 							"listen": "test",
@@ -371,32 +628,24 @@
 						}
 					],
 					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Upgrade-Insecure-Requests",
-								"value": "1"
-							},
-							{
-								"key": "User-Agent",
-								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
-							},
-							{
-								"key": "Accept",
-								"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email_owner\": \"{{email}}\",\r\n    \"task_id\": \"{{id_task}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
 							}
-						],
+						},
 						"url": {
-							"raw": "http://users.bugred.ru/user/logout.html",
-							"protocol": "http",
+							"raw": "{{url}}/DeleteTask",
 							"host": [
-								"users",
-								"bugred",
-								"ru"
+								"{{url}}"
 							],
 							"path": [
-								"user",
-								"logout.html"
+								"DeleteTask"
 							]
 						}
 					},
@@ -475,244 +724,6 @@
 							],
 							"path": [
 								"deleteuser"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Other",
-			"item": [
-				{
-					"name": "Add avatar",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "avatar",
-									"type": "file",
-									"src": "wednessfrogpstmn.jpg"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{url}}/addavatar/?email={{email}}",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"addavatar",
-								""
-							],
-							"query": [
-								{
-									"key": "email",
-									"value": "{{email}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete avatar",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/deleteavatar/?email={{email}}",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"deleteavatar",
-								""
-							],
-							"query": [
-								{
-									"key": "email",
-									"value": "{{email}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Task",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = pm.response.json();\r",
-									"pm.environment.set(\"id_task\", jsonData.id_task)\r",
-									"\r",
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"task_title\": \"Make a money\",\r\n    \"task_description\": \"Do a good job\",\r\n    \"email_owner\": \"{{email}}\",\r\n    \"email_assign\": \"{{email_x}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/CreateTask",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"CreateTask"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Task",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email_owner\": \"{{email}}\",\r\n    \"task_id\": \"{{id_task}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/DeleteTask",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"DeleteTask"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Search",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"query\": \"{{placeholder}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/magicsearch",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"magicsearch"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Full update user",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"{{email}}\",\r\n  \"name\": \"{{name}}\",\r\n  \"tasks\": \"\",\r\n  \"companies\": \"\",\r\n  \"hobby\":\"Company {{name_company}} owner\",\r\n  \"adres\":\"\",\r\n  \"name1\":\"\",\r\n  \"surname1\":\"\",\r\n  \"fathername1\":\"\",\r\n  \"cat\":\"\",\r\n  \"dog\":\"\",\r\n  \"parrot\":\"\",\r\n  \"cavy\":\"\",\r\n  \"hamster\":\"\",\r\n  \"squirrel\":\"\",\r\n  \"phone\":\"\",\r\n  \"inn\":\"\",\r\n  \"gender\":\"m\",\r\n  \"birthday\":\" \",\r\n  \"date_start\":\" \"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/fullupdateuser",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"fullupdateuser"
 							]
 						}
 					},
