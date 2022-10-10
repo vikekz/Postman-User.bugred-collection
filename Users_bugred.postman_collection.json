@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "f9cd9da4-ab1e-4d02-8200-4c22fc6d89f7",
 		"name": "Users_bugred",
+		"description": "Collection for Users.bugred.ru training project.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "20317533"
 	},
@@ -256,6 +257,10 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Upload avatar\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.eql(\"ok\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -271,7 +276,7 @@
 								{
 									"key": "avatar",
 									"type": "file",
-									"src": "/C:/GitHub/Postman-Training/frog_avatar.jpg"
+									"src": "frog_avatar.jpg"
 								}
 							]
 						},
