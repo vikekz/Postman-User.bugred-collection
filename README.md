@@ -1,2 +1,2 @@
 ### A collection of requests and environment for the **[Users.bugred.ru](http://users.bugred.ru/)** training project.
-
+### **[Link](https://www.postman.com/orbital-module-observer-93437619/workspace/test-workspace/collection/20317533-eaa45697-347c-477f-a1a5-80ea5354f099?action=share&creator=20317533&active-environment=20317533-0098c69e-2567-4e84-9df3-2abac0af7c65)** to Postman collection on workspace
